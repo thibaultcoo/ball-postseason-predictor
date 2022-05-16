@@ -9,3 +9,5 @@ https://www.ida.liu.se/research/sportsanalytics/projects/conferences/MLSA21-bask
 https://www.basketball-reference.com/
 
 https://medium.com/analytics-vidhya/intro-to-scraping-basketball-reference-data-8adcaa79664a
+
+https://fivethirtyeight.com/features/how-we-calculate-nba-elo-ratings/
