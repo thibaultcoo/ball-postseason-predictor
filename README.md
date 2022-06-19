@@ -1,6 +1,6 @@
 ## predicting the NBA postseason with regular season performance
 
-*though a ELO function*
+*though a enhanced power ranking function*
 
 **references so far**
 
