@@ -1,2 +1,1 @@
-## predicting the NBA postseason with regular season performance through an enhanced nonlinear power ranking function
-
+## predicting the NBA postseason through an enhanced nonlinear power ranking function
