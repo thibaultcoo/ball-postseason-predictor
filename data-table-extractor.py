@@ -5,6 +5,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import numpy as np
 
 def nba_data_extractor(year = "2021", step = "playoffs", type = "game", export="no"):
 
@@ -59,6 +60,7 @@ def nba_data_extractor(year = "2021", step = "playoffs", type = "game", export="
         nb_stats = 24
         col_clean.pop(0)
 
+    col_clean[0] = "Team"
     cont = content.find('tbody')
 
     indiv_team = []
@@ -76,13 +78,51 @@ def nba_data_extractor(year = "2021", step = "playoffs", type = "game", export="
                 indiv_team.append(teams.find_all('td')[j].string)
 
         total_team.append(indiv_team)
-    df = pd.DataFrame(total_team, columns=col_clean)
+    stats = pd.DataFrame(total_team, columns=col_clean)
+
+    # we append the playoff ranking of each team
+    url = 'https://www.basketball-reference.com/playoffs/NBA_' + year + '_standings.html'
+    page = requests.get(url)
+
+    pagecontent = str(page.content)
+    pagecontent = pagecontent.replace('<!--', "")
+    pagecontent = pagecontent.replace("-->", "")
+    pagecontent = pagecontent.replace("\n", "")
+    pagecontent = pagecontent.replace("\\n", "")
+    soup = BeautifulSoup(pagecontent, 'html.parser')
+
+    content = soup.find('div', {'id': 'all_expanded_standings'})
+    head = content.find('thead')
+    body = content.find('tbody')
+
+    col_raw = [head.text for item in head][0]
+    col_clean = col_raw.split()[6:8]
+    nb_teams = 16
+
+    indiv_team = []
+    total_team = []
+
+    # we will want to transform that
+    rank = [0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4]
+
+    for i in range(nb_teams):
+        teams = body.find_all('tr')[i]
+        indiv_team = []
+
+        indiv_team.append(teams.find_all('td')[0].string)
+        indiv_team.append(rank[i])
+
+        total_team.append(indiv_team)
+
+    ranking = pd.DataFrame(total_team, columns=col_clean)
+    stats = stats.merge(ranking, how='left')
+    stats = stats.replace(np.nan, 5)
 
     # we export the table
     if export == "yes":
         adress = year + "_" + step + "_" + type + ".csv"
-        df.to_csv(adress, index=False, header=True, sep=';')
+        stats.to_csv(adress, index=False, header=True, sep=';')
 
-    return df
+    return stats
 
-print(nba_data_extractor(year="2012",step="leagues",type="adv",export="yes"))
+print(nba_data_extractor(year="2007",step="leagues",type="game",export="yes"))
