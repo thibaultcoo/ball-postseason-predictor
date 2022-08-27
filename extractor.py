@@ -7,16 +7,16 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 
+# extracting data from a single season (working well)
 class data_extractor:
 
-    def __init__(self, year = "2021", step = "playoffs", type = "game", export="no"):
+    def __init__(self, year = "2021", step = "leagues", type = "game", export="no"):
         self.year = year
         self.step = step
         self.type = type
         self.export = export
 
     def nba_data_extractor(self):
-
         # select the appropriate table given the wanted table
         if self.type == "game":
             table = "switcher_per_game_team-opponent"
@@ -132,3 +132,27 @@ class data_extractor:
             stats.to_csv(adress, index=False, header=True, sep=';')
 
         return stats
+
+# aggregating extracted data from multiple seasons (working well)
+class data_aggregator:
+
+    def __init__(self, starting_year = 2018, ending_year = 2022):
+        self.starting_year = starting_year
+        self.ending_year = ending_year
+
+    def nba_data_aggregator(self):
+        entire_set = data_extractor(year=str(self.starting_year), type = "game").nba_data_extractor()
+        entire_set_adv = data_extractor(year=str(self.starting_year), type = "adv").nba_data_extractor()
+        entire_set = pd.merge(entire_set, entire_set_adv)
+
+        for year in range(self.starting_year+1, self.ending_year+1):
+            new_set = data_extractor(year=str(year), type = "game").nba_data_extractor()
+            new_set_adv = data_extractor(year=str(year), type = "adv").nba_data_extractor()
+            new_set = pd.merge(new_set, new_set_adv)
+            entire_set = pd.concat([entire_set, new_set])
+
+        entire_set.drop(["Team", "G", "MP"], inplace=True, axis=1)
+
+        return entire_set
+
+#print(data_aggregator().nba_data_aggregator())
