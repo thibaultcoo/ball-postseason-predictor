@@ -35,7 +35,11 @@ class data_transformator:
             elif other_rel[i - 1] == "/":
                 generated_variable = generated_variable / temp_var
 
-            generated_variable.fillna((999))
+            generated_variable.fillna(999, inplace=True)
+
+        print(considered_var)
+        print(self_rel)
+        print(other_rel)
 
         return generated_variable, considered_var, self_rel, other_rel
 
@@ -63,7 +67,5 @@ class data_transformator:
         random_structure = data_transformator.structure_generator(whole_x = whole_x, nb_stat = nb_stat)
         variable = random_structure[0]
         structure = random_structure[1]
-
-        print(variable)
 
         return variable, whole_y, structure

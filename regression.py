@@ -27,6 +27,8 @@ class data_regressor:
         rsq = model_tr.score(self.whole_set_x, self.whole_set_y)
         params = model_tr.coef_
 
+        print(params)
+
         def adjusted_rsq(rsq = None, n_obs = None, n_expl = None):
             return 1 - ((1 - rsq) * (n_obs - 1) / (n_obs - n_expl - 1))
 
