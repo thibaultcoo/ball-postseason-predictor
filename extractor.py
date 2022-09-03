@@ -154,5 +154,3 @@ class data_aggregator:
         entire_set.drop(["Team", "G", "MP"], inplace=True, axis=1)
 
         return entire_set
-
-#print(data_aggregator().nba_data_aggregator())

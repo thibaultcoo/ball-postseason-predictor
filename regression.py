@@ -2,9 +2,10 @@
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 from extractor import data_extractor
 import scipy.stats as sci
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import BayesianRidge, TweedieRegressor, LinearRegression # https://scikit-learn.org/stable/modules/linear_model.html#generalized-linear-regression
 
 # the isolator class will take the table as argument and extract the required set of stats (depending on the type of table)
 class data_regressor:
@@ -18,7 +19,17 @@ class data_regressor:
         self.whole_set_y, self.whole_set_x = np.array(self.whole_set_y), np.array(self.whole_set_x)
         self.whole_set_x = np.transpose(self.whole_set_x)
 
-        model = LinearRegression().fit(self.whole_set_x, self.whole_set_y)
-        score = model.score(self.whole_set_x, self.whole_set_y)
+        n_obs = np.shape(self.whole_set_x)[0]
+        n_expl = np.shape(self.whole_set_x)[1]
 
-        return score
+        #model_tr = TweedieRegressor(alpha=1.5, link='log', power=1).fit(self.whole_set_x, self.whole_set_y)
+        model_tr = LinearRegression().fit(self.whole_set_x, self.whole_set_y)
+        rsq = model_tr.score(self.whole_set_x, self.whole_set_y)
+        params = model_tr.coef_
+
+        def adjusted_rsq(rsq = None, n_obs = None, n_expl = None):
+            return 1 - ((1 - rsq) * (n_obs - 1) / (n_obs - n_expl - 1))
+
+        adj_rsq = adjusted_rsq(rsq = rsq, n_obs = n_obs, n_expl = n_expl)
+
+        return adj_rsq
