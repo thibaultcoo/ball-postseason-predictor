@@ -8,6 +8,6 @@ The aim of our research is to design an algorithm capable of modelling an optima
 
 The complete paper is also available inside the repository (last update: 9/4/22)
 
-The code can be used and modified by anyone freely. Download the whole repository and run the main programs named `algorithm.py` under your favourite Python IDE.
+The code can be used and modified by anyone freely. Download the whole repository and run the main program named `algorithm.py` under your favourite Python IDE. Select the starting and ending year for the data extraction and select your determination coefficient threshold, let the program find the nonlinear structure that fits best your data, and analyze your results at the end.
 
 Versions for the libraries used (use latest version if not mentionned): Python 3.10
