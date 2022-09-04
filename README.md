@@ -1,4 +1,4 @@
-#Enhanced power ranking function and basketball postseason brackets prediction through a non-linear regression approach
+# Enhanced power ranking function and basketball postseason brackets prediction through a non-linear regression approach
 
 #### Written by Thibault Collin
 
