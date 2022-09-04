@@ -12,16 +12,23 @@ class data_transformator:
         self.entire_set = entire_set
         self.type_stat = type_stat
 
-    # we want to randomly generate a variable (still in progress)
+    # we want to randomly generate a variable
     def variable_generator(whole_x = None, nb_stat = None):
         list_var = [i for i in range(1, nb_stat + 1)] # gives the total pool of variables
         binary_var = [np.random.randint(0, 2) for i in range(nb_stat)] # randomly select variables to use in the one transformed variable
         considered_var = [list_var[i] for i in range(nb_stat) if binary_var[i] != 0] # gives the final selection of variables
 
-        self_rel = [np.random.choice(a = [0.5, 1.0, 1.0, 2.0], p = [0.2, 0.5, 0.2, 0.1]) for i in range(len(considered_var))] # gives the power of each variable
-        other_rel = [np.random.choice(a = ["+", "-", "*", "/"], p = [0.15, 0.15, 0.4, 0.3]) for i in range(len(considered_var) - 1)] # gives the operations between each variable
+        # we isolate the case where we have no variable to consider (very simple bypass)
+        if len(considered_var) == 0:
+            considered_var = [np.random.randint(1, nb_stat + 1)]
 
-        generated_variable = pd.Series(whole_x[considered_var[0]].astype(float, errors = 'raise'))
+        # gives the power of each variable
+        self_rel = [np.random.choice(a = [0.5, 1.0, 2.0, 3.0], p = [0.2, 0.5, 0.2, 0.1]) for i in range(len(considered_var))]
+
+        # gives the operations between each variable
+        other_rel = [np.random.choice(a = ["+", "-", "*", "/"], p = [0.15, 0.15, 0.4, 0.3]) for i in range(len(considered_var) - 1)]
+
+        generated_variable = pd.Series(whole_x[considered_var[0] - 1].astype(float, errors = 'raise')) ** self_rel[0]
 
         for i in range(1, len(considered_var)):
             temp_var = pd.Series(whole_x[considered_var[i] - 1].astype(float, errors = 'raise')) ** self_rel[i]
@@ -37,11 +44,12 @@ class data_transformator:
 
             generated_variable.fillna(999, inplace=True)
 
-        print(considered_var)
-        print(self_rel)
-        print(other_rel)
+        variable_structure = []
+        variable_structure.append(considered_var)
+        variable_structure.append(self_rel)
+        variable_structure.append(other_rel)
 
-        return generated_variable, considered_var, self_rel, other_rel
+        return generated_variable, variable_structure
 
     # we want to randomly generate a structure comprising the given data-set
     def structure_generator(whole_x = None, nb_stat = None):

@@ -1,13 +1,12 @@
 # this program allows you to extract any stat table from any year (regular and postseason, from 1980)
 # box score and advanced tables (close to fifty statistics)
 
-# required libraries
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 
-# extracting data from a single season (working well)
+# extracting data from a single season
 class data_extractor:
 
     def __init__(self, year = "2021", step = "leagues", type = "game", export="no"):
@@ -70,6 +69,12 @@ class data_extractor:
 
         col_clean[0] = "Team"
         cont = content.find('tbody')
+
+        # change the name of certain columns to not make it ambiguous
+        if self.type == "adv":
+            col_clean[20] = "advFG%"
+            col_clean[21] = "advTOV%"
+            col_clean[23] = "advFT/FGA"
 
         indiv_team = []
         total_team = []
