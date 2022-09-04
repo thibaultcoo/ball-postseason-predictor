@@ -1,6 +1,3 @@
-# this program allows you to extract any stat table from any year (regular and postseason, from 1980)
-# box score and advanced tables (close to fifty statistics)
-
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd

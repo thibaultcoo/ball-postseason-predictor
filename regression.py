@@ -1,5 +1,3 @@
-# class responsible for isolating several statistics that are to be used for tests/regressions
-
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
@@ -7,7 +5,7 @@ from extractor import data_extractor
 import scipy.stats as sci
 from sklearn.linear_model import BayesianRidge # https://scikit-learn.org/stable/modules/linear_model.html#generalized-linear-regression
 
-# the isolator class will take the table as argument and extract the required set of stats (depending on the type of table)
+# performing the necessary regression on a given transformed data set
 class data_regressor:
 
     def __init__(self, whole_set_x = None, whole_set_y = None, type_stat = ["W","L","SRS","ORtg","DRtg","NRtg","Pace","FTr","3PAr"]):

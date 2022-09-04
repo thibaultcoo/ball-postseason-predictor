@@ -1,6 +1,7 @@
 import os
 import numpy as np
 
+# displaying nicely all the final results
 class model_displayer:
 
     def __init__(self, score=None, nb_variables=None, input_variables=None, coeffs=None, const=None, structure=None, \

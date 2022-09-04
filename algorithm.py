@@ -1,7 +1,3 @@
-# core of the research
-# algorithm that will optimally try as many combinations of variables
-# we will start easily and then implement gradually more complex features
-
 from extractor import data_extractor, data_aggregator
 from regression import data_regressor
 from transformator import data_transformator
@@ -9,7 +5,7 @@ from displayer import model_displayer
 import time
 import numpy as np
 
-# general algo
+# algorithm that will optimally try as many combinations of variables
 class nba_algorithm:
 
     def __init__(self, starting_year=None, ending_year=None, type_stat=None, threshold=None):
@@ -41,7 +37,7 @@ class nba_algorithm:
         return void
 
 type_stat = ["ORtg","DRtg","FTr","Pace","eFG%","TOV%","ORB%","FT/FGA","advFG%","advTOV%","DRB%","advFT/FGA"]
-starting_year = 2000
+starting_year = 1990
 ending_year = 2022
 threshold = 0.60
 print(nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, threshold=threshold).main_nba())
