@@ -1,0 +1,27 @@
+The following non-linear structure is supposedly best able to predict the NBA postseason:
+Considering a set of data going from 1990 to 2022
+Number of iterations required to obtain the result : 11567
+Elapsed time (in seconds) : 199.0
+With a coefficient of determination = 0.608
+
+
+Our model is composed of 3 variable(s), which were (was) built as nonlinear combinaison(s) of our input variables
+Our input variables were the following : ['ORtg', 'DRtg', 'FTr', 'Pace', 'eFG%', 'TOV%', 'ORB%', 'FT/FGA', 'advFG%', 'advTOV%', 'DRB%', 'advFT/FGA']
+
+
+Variable 1 :
+Randomly considered subset of variables : ['ORtg', 'FTr', 'eFG%', 'TOV%', 'FT/FGA']
+Randomly considered power operations on each variable : [0.5, 1.0, 0.5, 3.0, 1.0]
+Randomly considered operations between those variables : ['*', '-', '+', '*']
+
+
+Variable 2 :
+Randomly considered subset of variables : ['ORtg', 'DRtg', 'eFG%', 'TOV%', 'advFG%', 'advFT/FGA']
+Randomly considered power operations on each variable : [1.0, 1.0, 1.0, 2.0, 3.0, 0.5]
+Randomly considered operations between those variables : ['-', '*', '/', '/', '/']
+
+
+Variable 3 :
+Randomly considered subset of variables : ['FTr', 'Pace', 'eFG%', 'TOV%', 'FT/FGA', 'advFG%', 'advFT/FGA']
+Randomly considered power operations on each variable : [4.0, 4.0, 0.5, 2.0, 1.0, 1.0, 1.0]
+Randomly considered operations between those variables : ['/', '*', '/', '/', '/', '-']
