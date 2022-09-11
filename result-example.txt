@@ -1,27 +1,65 @@
 The following non-linear structure is supposedly best able to predict the NBA postseason:
-Considering a set of data going from 1990 to 2022
-Number of iterations required to obtain the result : 11567
-Elapsed time (in seconds) : 199.0
-With a coefficient of determination = 0.608
+Considering a set of data going from 2001 to 2021
+Number of iterations required to obtain the result : 23025
+Elapsed time (in seconds) : 276.56
+With a coefficient of determination = 0.6008
 
 
 Our model is composed of 3 variable(s), which were (was) built as nonlinear combinaison(s) of our input variables
 Our input variables were the following : ['ORtg', 'DRtg', 'FTr', 'Pace', 'eFG%', 'TOV%', 'ORB%', 'FT/FGA', 'advFG%', 'advTOV%', 'DRB%', 'advFT/FGA']
 
 
-Variable 1 :
-Randomly considered subset of variables : ['ORtg', 'FTr', 'eFG%', 'TOV%', 'FT/FGA']
-Randomly considered power operations on each variable : [0.5, 1.0, 0.5, 3.0, 1.0]
-Randomly considered operations between those variables : ['*', '-', '+', '*']
+With a constant coefficient of : 3.90779
 
 
-Variable 2 :
-Randomly considered subset of variables : ['ORtg', 'DRtg', 'eFG%', 'TOV%', 'advFG%', 'advFT/FGA']
-Randomly considered power operations on each variable : [1.0, 1.0, 1.0, 2.0, 3.0, 0.5]
-Randomly considered operations between those variables : ['-', '*', '/', '/', '/']
+Variable 1 (multiplying coefficient of -29.03915) :
+Randomly considered subset of variables : ['ORtg', 'DRtg', 'FTr', 'eFG%', 'advFG%']
+Randomly considered power operations on each variable : [0.5, 0.5, 1.0, 3.0, 2.0]
+Randomly considered operations between those variables : ['-', '*', '*', '/']
 
 
-Variable 3 :
-Randomly considered subset of variables : ['FTr', 'Pace', 'eFG%', 'TOV%', 'FT/FGA', 'advFG%', 'advFT/FGA']
-Randomly considered power operations on each variable : [4.0, 4.0, 0.5, 2.0, 1.0, 1.0, 1.0]
-Randomly considered operations between those variables : ['/', '*', '/', '/', '/', '-']
+Variable 2 (multiplying coefficient of 2.08477) :
+Randomly considered subset of variables : ['ORtg', 'DRtg', 'FTr', 'eFG%', 'TOV%', 'ORB%', 'FT/FGA']
+Randomly considered power operations on each variable : [2.0, 2.0, 4.0, 3.0, 4.0, 0.5, 4.0]
+Randomly considered operations between those variables : ['+', '-', '*', '/', '+', '*']
+
+
+Variable 3 (multiplying coefficient of 0.0) :
+Randomly considered subset of variables : ['ORtg', 'DRtg', 'advFG%', 'DRB%', 'advFT/FGA']
+Randomly considered power operations on each variable : [0.5, 3.0, 1.0, 3.0, 0.5]
+Randomly considered operations between those variables : ['*', '*', '*', '*']
+
+
+Here is the power ranking for the year 2022 based on the previously generated function :
+
+                      Team  Power ranking
+11          Boston Celtics       0.021390
+4             Phoenix Suns       0.022282
+6                Utah Jazz       0.022375
+14   Golden State Warriors       0.024453
+1        Memphis Grizzlies       0.026108
+16              Miami Heat       0.026344
+23        Dallas Mavericks       0.028619
+2          Milwaukee Bucks       0.028732
+17      Philadelphia 76ers       0.029347
+0   Minnesota Timberwolves       0.030038
+9           Denver Nuggets       0.030178
+24     Cleveland Cavaliers       0.030340
+19         Toronto Raptors       0.031137
+5            Atlanta Hawks       0.031628
+8            Brooklyn Nets       0.032767
+3        Charlotte Hornets       0.033467
+7        San Antonio Spurs       0.033901
+22    Los Angeles Clippers       0.034027
+25         New York Knicks       0.034182
+12           Chicago Bulls       0.034618
+20    New Orleans Pelicans       0.035376
+13          Indiana Pacers       0.038537
+10      Los Angeles Lakers       0.038606
+21      Washington Wizards       0.039120
+15        Sacramento Kings       0.041541
+29   Oklahoma City Thunder       0.042922
+27         Detroit Pistons       0.042983
+28           Orlando Magic       0.043066
+26  Portland Trail Blazers       0.044950
+18         Houston Rockets       0.046965
