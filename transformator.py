@@ -44,8 +44,6 @@ class data_transformator:
             elif other_rel[i - 1] == "/":
                 generated_variable = generated_variable / temp_var
 
-            generated_variable.fillna(9999, inplace=True)
-
         variable_structure = []
         variable_structure.append(considered_var)
         variable_structure.append(self_rel)

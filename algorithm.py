@@ -2,6 +2,7 @@ from extractor import data_extractor, data_aggregator
 from regression import data_regressor
 from transformator import data_transformator
 from displayer import model_displayer
+from predictor import model_predictor
 import time
 import numpy as np
 
@@ -19,7 +20,9 @@ class nba_algorithm:
         score = 0.0
         iter = 0
         void = ""
-        entire_set = data_aggregator(starting_year=self.starting_year,ending_year=self.ending_year).nba_data_aggregator()
+
+        print("Fetching data from " + str(self.starting_year) + " to " + str(self.ending_year))
+        entire_set = data_aggregator(starting_year=self.starting_year, ending_year=self.ending_year).nba_data_aggregator()
 
         while score < self.threshold:
             transformed_set = data_transformator(entire_set = entire_set, type_stat = self.type_stat).nba_data_transformator()
@@ -34,10 +37,16 @@ class nba_algorithm:
                         structure=transformed_set[2], starting_year=self.starting_year, ending_year=self.ending_year,
                         iter=iter, elapsed_time=elapsed_time).nba_model_displayer()
 
+        print('\n')
+        model_predictor(chosen_year=2022, nb_variables=len(regression[1]), input_variables=self.type_stat, coeffs=regression[1], const=regression[2],
+                        structure=transformed_set[2]).nba_model_predictor()
+
         return void
 
 type_stat = ["ORtg","DRtg","FTr","Pace","eFG%","TOV%","ORB%","FT/FGA","advFG%","advTOV%","DRB%","advFT/FGA"]
-starting_year = 1990
-ending_year = 2022
-threshold = 0.60
-print(nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, threshold=threshold).main_nba())
+starting_year = 2001
+ending_year = 2021
+threshold = 0.59
+
+result = nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, threshold=threshold).main_nba()
+print(result)

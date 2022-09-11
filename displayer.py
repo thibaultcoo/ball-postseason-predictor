@@ -28,10 +28,12 @@ class model_displayer:
         print("\n")
         print("Our model is composed of " + str(self.nb_variables) + " variable(s), which were (was) built as nonlinear combinaison(s) of our input variables")
         print("Our input variables were the following : " + str(self.input_variables))
+        print("\n")
+        print("With a constant coefficient of : " + str(np.round(self.const,5)))
 
         for var in range(self.nb_variables):
             print("\n")
-            print("Variable " + str(var + 1) + " :")
+            print("Variable " + str(var + 1) + " (multiplying coefficient of " + str(np.round(self.coeffs[var], 5)) + ") :")
             var_list = [self.input_variables[self.structure[var][0][u] - 1] for u in range(len(self.structure[var][0]))]
             print("Randomly considered subset of variables : " + str(var_list))
 

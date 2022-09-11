@@ -153,6 +153,6 @@ class data_aggregator:
             new_set = pd.merge(new_set, new_set_adv)
             entire_set = pd.concat([entire_set, new_set])
 
-        entire_set.drop(["Team", "G", "MP"], inplace=True, axis=1)
+        entire_set.drop(["G", "MP"], inplace=True, axis=1)
 
         return entire_set
