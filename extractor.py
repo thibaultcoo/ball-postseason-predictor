@@ -130,8 +130,8 @@ class data_extractor:
 
         # we export the table
         if self.export == "yes":
-            adress = self.year + "_" + self.step + "_" + self.type + ".csv"
-            stats.to_csv(adress, index=False, header=True, sep=';')
+            address = self.year + "_" + self.step + "_" + self.type + ".csv"
+            stats.to_csv(address, index=False, header=True, sep=';')
 
         return stats
 

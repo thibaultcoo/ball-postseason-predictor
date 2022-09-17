@@ -5,12 +5,13 @@ from extractor import data_extractor, data_aggregator
 # transforming data, from raw extracted variables to nonlinear combinaisons of these raw variables
 class data_transformator:
 
-    def __init__(self, entire_set = None, type_stat = None):
+    def __init__(self, entire_set=None, type_stat=None, new_structure=None):
         self.entire_set = entire_set
         self.type_stat = type_stat
+        self.new_structure = new_structure
 
     # we want to randomly generate a variable
-    def variable_generator(whole_x = None, nb_stat = None):
+    def variable_generator(self, whole_x=None, nb_stat=None, existing_structure=None):
         # gives the total pool of variables
         list_var = [i for i in range(1, nb_stat + 1)]
 
@@ -29,6 +30,12 @@ class data_transformator:
 
         # gives the operations between each variable
         other_rel = [np.random.choice(a = ["+", "-", "*", "/"], p = [0.15, 0.15, 0.4, 0.3]) for i in range(len(considered_var) - 1)]
+
+        # in the case where we do not want to generate a new structure, but rather test an existing one
+        if self.new_structure != None:
+            considered_var = existing_structure[0]
+            self_rel = existing_structure[1]
+            other_rel = existing_structure[2]
 
         generated_variable = pd.Series(whole_x[considered_var[0] - 1].astype(float, errors = 'raise')) ** self_rel[0]
 
@@ -52,14 +59,20 @@ class data_transformator:
         return generated_variable, variable_structure
 
     # we want to randomly generate a structure comprising the given data-set
-    def structure_generator(whole_x = None, nb_stat = None):
+    def structure_generator(self, whole_x=None, nb_stat=None):
         # gives the random number of new variables
         nb_transformed_var = np.random.randint(1, 4)
         transformed_x = []
         structure_x = []
+        existing_structure = [None, None, None]
+
+        # in the case where we do not want to generate a new structure, but rather test an existing one
+        if self.new_structure != None:
+            existing_structure = self.new_structure
+            nb_transformed_var = len(existing_structure)
 
         for i in range(nb_transformed_var):
-            random_var = data_transformator.variable_generator(whole_x = whole_x, nb_stat = nb_stat)
+            random_var = data_transformator.variable_generator(self, whole_x = whole_x, nb_stat = nb_stat, existing_structure = existing_structure[i])
             transformed_x.append(random_var[0])
             structure_x.append(random_var[1])
 
@@ -73,7 +86,7 @@ class data_transformator:
         for stat in range(nb_stat):
             whole_x.append(self.entire_set[self.type_stat[stat]])
 
-        random_structure = data_transformator.structure_generator(whole_x = whole_x, nb_stat = nb_stat)
+        random_structure = data_transformator.structure_generator(self, whole_x = whole_x, nb_stat = nb_stat)
         variable = random_structure[0]
         structure = random_structure[1]
 
