@@ -8,12 +8,13 @@ import time
 import ast
 import numpy as np
 
-# algorithm that will optimally try as many combinations of variables
+# algorithm that will optimally try as many combinations of variables as possible, until the threshold is reached
 class nba_algorithm:
 
-    def __init__(self, starting_year=None, ending_year=None, type_stat=None, threshold=None, new_structure="yes"):
+    def __init__(self, starting_year=None, ending_year=None, testing_year=None, type_stat=None, threshold=None, new_structure="yes"):
         self.starting_year = starting_year
         self.ending_year = ending_year
+        self.testing_year = testing_year
         self.type_stat = type_stat
         self.threshold = threshold
         self.new_structure = new_structure
@@ -55,7 +56,7 @@ class nba_algorithm:
                         structure=transformed_set[2], starting_year=self.starting_year, ending_year=self.ending_year,
                         iter=iter, elapsed_time=elapsed_time).nba_model_displayer()
 
-        model_predictor(chosen_year=2022, nb_variables=len(regression[1]), input_variables=self.type_stat, coeffs=regression[1], const=regression[2],
+        model_predictor(chosen_year=self.testing_year, nb_variables=len(regression[1]), input_variables=self.type_stat, coeffs=regression[1], const=regression[2],
                         structure=transformed_set[2]).nba_model_predictor()
 
         model_storer(structure=transformed_set[2], starting_year=self.starting_year, ending_year=self.ending_year, iter=iter, elapsed_time=elapsed_time,
@@ -64,10 +65,11 @@ class nba_algorithm:
         return void
 
 type_stat = ["ORtg","DRtg","FTr","Pace","eFG%","TOV%","ORB%","FT/FGA","advFG%","advTOV%","DRB%","advFT/FGA"]
-starting_year = 2013
+starting_year = 2015
 ending_year = 2021
-threshold = 0.63
+testing_year = 2022
+threshold = 0.60
 new_structure = "yes"
 
-result = nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, threshold=threshold, new_structure=new_structure).main_nba()
+result = nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, testing_year=testing_year, threshold=threshold, new_structure=new_structure).main_nba()
 print(result)

@@ -52,7 +52,7 @@ class model_predictor:
         sum_col = set.iloc[:, 1].sum()
 
         # ranks the teams
-        set['Power ranking'] = set['Power ranking'].div(sum_col)
         set = set.sort_values(by=['Power ranking'], ascending=True)
+        set['Power ranking'] = set['Power ranking'].div(sum_col)
         print(set)
         print('\n')

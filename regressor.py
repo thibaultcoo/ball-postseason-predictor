@@ -3,7 +3,7 @@ import pandas as pd
 import statsmodels.api as sm
 from extractor import data_extractor
 import scipy.stats as sci
-from sklearn.linear_model import BayesianRidge # https://scikit-learn.org/stable/modules/linear_model.html#generalized-linear-regression
+from sklearn.linear_model import BayesianRidge, LinearRegression # https://scikit-learn.org/stable/modules/linear_model.html#generalized-linear-regression
 
 # performing the necessary regression on a given transformed data set
 class data_regressor:
