@@ -10,7 +10,7 @@ The complete paper will also available inside the repository (last update: 9/17/
 
 The code can be used and modified by anyone freely. Download the whole repository and run the main program named `algorithm.py` under your favourite Python IDE. Select the starting and ending year for the data extraction and select your determination coefficient threshold, let the program find the nonlinear structure that fits best your data, and analyze your results at the end.
 
-Save your structure if you are satisfied with the result, it will take the same form as the one proposed in `structure_35c3acb2a5.txt`. The program also allows you to load an existing structure instead of generating a random one. The file `result-example.txt` details what the algorithm outputs for a randomly generated structure.
+Save your structure if you are satisfied with the result, it will take the same form as the one proposed in `structure_4e4e14bb1a.txt`. The program also allows you to load an existing structure instead of generating a random one. The file `result-example.txt` details what the algorithm outputs for a randomly generated structure.
 
 
 Versions for the libraries used (use latest version if not mentionned): Python 3.10
