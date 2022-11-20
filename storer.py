@@ -4,7 +4,8 @@ from extractor import data_extractor, data_aggregator
 
 class model_storer:
 
-    def __init__(self, structure=None, starting_year=None, ending_year=None, iter=None, elapsed_time=None, input_variables=None, score=None):
+    def __init__(self, structure=None, starting_year=None, ending_year=None, iter=None, elapsed_time=None,
+                 input_variables=None, score=None, coeffs=None, const=None):
         self.structure = structure
         self.starting_year = starting_year
         self.ending_year = ending_year
@@ -12,6 +13,8 @@ class model_storer:
         self.elapsed_time = elapsed_time
         self.input_variables = input_variables
         self.score = score
+        self.coeffs = coeffs
+        self.const = const
 
     def nba_model_storer(self):
         bool_store = input("Type yes if you would like to save your structure, so as to use it later : ")
@@ -28,13 +31,17 @@ class model_storer:
             with open(address, 'w') as f:
                 f.write(str(self.structure))
                 f.write('\n')
+                f.write(str(self.const))
+                f.write('\n')
+                f.write(str(self.coeffs))
+                f.write('\n')
                 f.write(str(self.starting_year))
                 f.write('\n')
                 f.write(str(self.ending_year))
                 f.write('\n')
                 f.write(str(self.iter))
                 f.write('\n')
-                f.write(str(self.elapsed_time))
+                f.write(str(np.round(self.elapsed_time, 2)))
                 f.write('\n')
                 f.write(str(self.input_variables))
                 f.write('\n')

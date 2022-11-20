@@ -19,7 +19,7 @@ class data_regressor:
         n_obs = np.shape(self.whole_set_x)[0]
         n_expl = np.shape(self.whole_set_x)[1]
 
-        model_tr = BayesianRidge().fit(self.whole_set_x, self.whole_set_y)
+        model_tr = LinearRegression().fit(self.whole_set_x, self.whole_set_y)
         rsq = model_tr.score(self.whole_set_x, self.whole_set_y)
         params = model_tr.coef_
         const = model_tr.intercept_
