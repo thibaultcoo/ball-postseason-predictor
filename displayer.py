@@ -39,3 +39,5 @@ class model_displayer:
 
             print("Randomly considered power operations on each variable : " + str(self.structure[var][1]))
             print("Randomly considered operations between those variables : " + str(self.structure[var][2]))
+
+        print("\n")

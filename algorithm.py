@@ -65,10 +65,10 @@ class nba_algorithm:
         return void
 
 type_stat = ["ORtg","DRtg","FTr","Pace","eFG%","TOV%","ORB%","FT/FGA","advFG%","advTOV%","DRB%","advFT/FGA"]
-starting_year = 2021
+starting_year = 2015
 ending_year = 2021
 testing_year = 2022
-threshold = 0.50
+threshold = 0.62
 new_structure = "yes"
 
 result = nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, testing_year=testing_year, threshold=threshold, new_structure=new_structure).main_nba()
