@@ -2,7 +2,7 @@
 
 #### Written by Thibault Collin
 
-*Paper and algorithm produced in Fall 2022, Final version*
+*Paper and algorithm produced in Fall 2022, pre-Final version*
 
 The aim of our research is to design an algorithm capable of modelling an optimal and non-linear power ranking function for professional teams from the *National Basketball Association* based on their regular season performance, with the final objective being to predict the outcome of the postseason tournament. The algorithm shall be made such that the correct equation be available and usable. To the best of our knowledge, the following techniques used to design the algorithm were not used in the past literature. The power ranking function given by the algorithm is to be found at the end of this paper.
 
