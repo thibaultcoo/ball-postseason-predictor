@@ -6,11 +6,12 @@ import numpy as np
 # extracting data from a single season
 class data_extractor:
 
-    def __init__(self, year = "2021", step = "leagues", type = "game", export="no"):
+    def __init__(self, year = "2021", step = "leagues", type = "game", export="no", live_prediction=False):
         self.year = year
         self.step = step
         self.type = type
         self.export = export
+        self.live_prediction = live_prediction
 
     def nba_data_extractor(self):
         # select the appropriate table given the wanted table
@@ -90,43 +91,44 @@ class data_extractor:
             total_team.append(indiv_team)
         stats = pd.DataFrame(total_team, columns=col_clean)
 
-        # we append the playoff ranking of each team
-        url = 'https://www.basketball-reference.com/playoffs/NBA_' + self.year + '_standings.html'
-        page = requests.get(url)
+        if self.live_prediction != True:
+            # we append the playoff ranking of each team
+            url = 'https://www.basketball-reference.com/playoffs/NBA_' + self.year + '_standings.html'
+            page = requests.get(url)
 
-        pagecontent = str(page.content)
-        pagecontent = pagecontent.replace('<!--', "")
-        pagecontent = pagecontent.replace("-->", "")
-        pagecontent = pagecontent.replace("\n", "")
-        pagecontent = pagecontent.replace("\\n", "")
-        soup = BeautifulSoup(pagecontent, 'html.parser')
+            pagecontent = str(page.content)
+            pagecontent = pagecontent.replace('<!--', "")
+            pagecontent = pagecontent.replace("-->", "")
+            pagecontent = pagecontent.replace("\n", "")
+            pagecontent = pagecontent.replace("\\n", "")
+            soup = BeautifulSoup(pagecontent, 'html.parser')
 
-        content = soup.find('div', {'id': 'all_expanded_standings'})
-        head = content.find('thead')
-        body = content.find('tbody')
+            content = soup.find('div', {'id': 'all_expanded_standings'})
+            head = content.find('thead')
+            body = content.find('tbody')
 
-        col_raw = [head.text for item in head][0]
-        col_clean = col_raw.split()[6:8]
-        nb_teams = 16
+            col_raw = [head.text for item in head][0]
+            col_clean = col_raw.split()[6:8]
+            nb_teams = 16
 
-        indiv_team = []
-        total_team = []
-
-        # we will want to transform that
-        rank = [0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4]
-
-        for i in range(nb_teams):
-            teams = body.find_all('tr')[i]
             indiv_team = []
+            total_team = []
 
-            indiv_team.append(teams.find_all('td')[0].string)
-            indiv_team.append(rank[i])
+            # we will want to transform that
+            rank = [0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4]
 
-            total_team.append(indiv_team)
+            for i in range(nb_teams):
+                teams = body.find_all('tr')[i]
+                indiv_team = []
 
-        ranking = pd.DataFrame(total_team, columns=col_clean)
-        stats = stats.merge(ranking, how='left')
-        stats = stats.replace(np.nan, 5)
+                indiv_team.append(teams.find_all('td')[0].string)
+                indiv_team.append(rank[i])
+
+                total_team.append(indiv_team)
+
+            ranking = pd.DataFrame(total_team, columns=col_clean)
+            stats = stats.merge(ranking, how='left')
+            stats = stats.replace(np.nan, 5)
 
         # we export the table
         if self.export == "yes":
@@ -138,18 +140,19 @@ class data_extractor:
 # aggregating extracted data from multiple seasons (working well)
 class data_aggregator:
 
-    def __init__(self, starting_year = 2018, ending_year = 2022):
+    def __init__(self, starting_year = 2018, ending_year = 2022, live_prediction=False):
         self.starting_year = starting_year
         self.ending_year = ending_year
+        self.live_prediction = live_prediction
 
     def nba_data_aggregator(self):
-        entire_set = data_extractor(year=str(self.starting_year), type = "game").nba_data_extractor()
-        entire_set_adv = data_extractor(year=str(self.starting_year), type = "adv").nba_data_extractor()
+        entire_set = data_extractor(year=str(self.starting_year), type = "game", live_prediction=self.live_prediction).nba_data_extractor()
+        entire_set_adv = data_extractor(year=str(self.starting_year), type = "adv", live_prediction=self.live_prediction).nba_data_extractor()
         entire_set = pd.merge(entire_set, entire_set_adv)
 
         for year in range(self.starting_year+1, self.ending_year+1):
-            new_set = data_extractor(year=str(year), type = "game").nba_data_extractor()
-            new_set_adv = data_extractor(year=str(year), type = "adv").nba_data_extractor()
+            new_set = data_extractor(year=str(year), type = "game", live_prediction=self.live_prediction).nba_data_extractor()
+            new_set_adv = data_extractor(year=str(year), type = "adv", live_prediction=self.live_prediction).nba_data_extractor()
             new_set = pd.merge(new_set, new_set_adv)
             entire_set = pd.concat([entire_set, new_set])
 

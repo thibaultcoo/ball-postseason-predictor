@@ -16,7 +16,7 @@ class model_predictor:
         print("Here is the power ranking for the year " + str(self.chosen_year) + " based on the previously generated function : \n")
 
         # extracts the data of a given year (initial input by the user)
-        test_set = data_aggregator(starting_year=self.chosen_year, ending_year=self.chosen_year).nba_data_aggregator()
+        test_set = data_aggregator(starting_year=self.chosen_year, ending_year=self.chosen_year, live_prediction=True).nba_data_aggregator()
         final_set = pd.Series(test_set['Team'])
 
         # for each transformed variable -> computes the value for each team

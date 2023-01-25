@@ -49,8 +49,8 @@ class nba_algorithm:
         elapsed_time = time.time() - start_time
 
         if self.new_structure == "no":
-            iter = int(file[3])
-            elapsed_time = float(file[4])
+            iter = int(file[5])
+            elapsed_time = float(file[6])
 
         model_displayer(score=score, nb_variables=len(regression[1]), input_variables=self.type_stat, coeffs=regression[1], const=regression[2],
                         structure=transformed_set[2], starting_year=self.starting_year, ending_year=self.ending_year,
@@ -67,9 +67,9 @@ class nba_algorithm:
 type_stat = ["ORtg","DRtg","FTr","Pace","eFG%","TOV%","ORB%","FT/FGA","advFG%","advTOV%","DRB%","advFT/FGA"]
 starting_year = 2015
 ending_year = 2021
-testing_year = 2022
-threshold = 0.62
-new_structure = "yes"
+testing_year = 2023
+threshold = 0.45
+new_structure = "no"
 
 result = nba_algorithm(type_stat=type_stat, starting_year=starting_year, ending_year=ending_year, testing_year=testing_year, threshold=threshold, new_structure=new_structure).main_nba()
 print(result)
